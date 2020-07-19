@@ -1,0 +1,40 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+  
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    
+}
+
+.my-container {
+    border: 3px solid green;
+    margin-top: 20px;
+}
+
+.my-row {
+    border: 3px solid red;
+}
+
+.my-col {
+    border: 3px dotted blue;
+}
+
+/* Sticky footer properties */
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  
+    /* Set the fixed height of the footer here */
+    height: 40px;
+  
+    /* Vertically center the text there */
+    line-height: 40px; 
+    color: white;
+    text-align: center;
+    font-size: 14px;
+  }
