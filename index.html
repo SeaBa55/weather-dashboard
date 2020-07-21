@@ -45,23 +45,55 @@
 
                 <div class="row my-row">
 
-                    <div class="col-md-4 my-col">
+                    <div class="col my-col">
 
                         <div class="row my-row">
 
-                            <div class="col my-col">
+                            <!-- search cities card container - styled to extend to maximum width of its container-->
+                            <div class="card border-dark" style="width: 100%;">
         
-                                search area
-        
+                                <div class="card-header">Search for a City</div>
+
+                                <div class="card-body text-dark">
+                                    
+                                    <div class="input-group">
+                                        
+                                        <input type="text" class="form-control" placeholder="Enter a City" aria-label="enter city name" aria-describedby="search button">
+
+                                        <div class="input-group-append">
+
+                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
                             </div>
         
                         </div>
 
                         <div class="row my-row">
-
-                            <div class="col my-col">
+                            
+                            <!-- recently searched cities card container - styled to extend to maximum width of its container-->
+                            <div class="card border-dark" style="width: 100%;">
         
-                                city history
+                                <div class="card-header">Recent Cities</div>
+
+                                <div class="card-body text-dark">
+                                    
+                                    <div class="list-group list-group-flush">
+                                        
+                                        <!-- example list item buttons to be programatically added -->
+                                        <button type="button" class="list-group-item list-group-item-action">Washington, DC</button>
+                                        <button type="button" class="list-group-item list-group-item-action">Detroit, MI</button>
+                                        
+                                    </div>
+
+                                </div>
         
                             </div>
         
@@ -73,19 +105,166 @@
 
                         <div class="row my-row">
 
-                            <div class="col my-col">
+                            <!-- today's forcast card for selected city - styled to extend to maximum width of its container-->
+                            <div class="card border-dark" style="width: 100%;">
         
-                                city 5-day forcast
+                                <div class="card-header">Washington, DC - 12/19/2020</div>
+
+                                <div class="card-body text-dark">
+                                 
+                                    <div class="row my-row">
+
+                                        <div class="col-4 my-col">
+
+                                            Current Weather Icon
+
+                                        </div>
+
+                                        <div class="col-8 my-col">
+                                            
+                                            <div class="row my-row">
+                                                Temperature
+                                            </div>
+                                            
+                                            <div class="row my-row">
+                                                Humidity
+                                            </div>
+
+                                            <div class="row my-row">
+                                                Wind speed
+                                            </div>
+
+                                            <div class="row my-row">
+                                                UV index
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
         
                             </div>
         
                         </div>
 
                         <div class="row my-row">
-
-                            <div class="col my-col">
+                            
+                            <!-- 5-day forcast card - styled to extend to maximum width of its container-->
+                            <div class="card border-dark" style="width: 100%;">
         
-                                current day city weather info
+                                <div class="card-header">5-Day Forcast</div>
+
+                                <div class="card-body card5day-body text-dark">
+                                    
+                                    <!-- center 5-day forcast cards within card container -->
+                                    <div class="row justify-content-center">
+                                        
+                                        <!-- individual day card for 5-day forcast area -->
+                                        <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
+                                            <div class="card text-white bg-info">
+                                                <div class="card-header card5day-header">12/20</div>
+                                                <div class="card-body single-day-body">
+                                                    
+                                                    <div class="row my-row">
+                                                        Icon
+                                                    </div>
+                                                    <div class="row my-row">
+                                                        Temp: 88  F
+                                                    </div>
+                                                    <div class="row my-row">
+                                                        Humidity: 43%
+                                                    </div>
+                                        
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>     
+                                        
+                                        <!-- individual day card for 5-day forcast area -->
+                                        <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
+                                            <div class="card text-white bg-info" >
+                                                <div class="card-header card5day-header">12/21</div>
+                                                <div class="card-body single-day-body">
+                                                    
+                                                    <div class="row my-row">
+                                                        Icon
+                                                    </div>
+                                                    <div class="row my-row">
+                                                        Temp: 88  F
+                                                    </div>
+                                                    <div class="row my-row">
+                                                        Humidity: 43%
+                                                    </div>
+                                        
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- individual day card for 5-day forcast area -->
+                                        <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
+                                            <div class="card text-white bg-info">
+                                                <div class="card-header card5day-header">12/22</div>
+                                                <div class="card-body single-day-body">
+                                                    
+                                                    <div class="row my-row">
+                                                        Icon
+                                                    </div>
+                                                    <div class="row my-row">
+                                                        Temp: 88  F
+                                                    </div>
+                                                    <div class="row my-row">
+                                                        Humidity: 43%
+                                                    </div>
+                                        
+                                                </div>
+                                            </div>
+                                        </div>     
+                                        
+                                        <!-- individual day card for 5-day forcast area -->
+                                        <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
+                                            <div class="card text-white bg-info" >
+                                                <div class="card-header card5day-header">12/23</div>
+                                                <div class="card-body single-day-body">
+                                                    
+                                                    <div class="row my-row">
+                                                        Icon
+                                                    </div>
+                                                    <div class="row my-row">
+                                                        Temp: 88  F
+                                                    </div>
+                                                    <div class="row my-row">
+                                                        Humidity: 43%
+                                                    </div>
+                                        
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- individual day card for 5-day forcast area -->
+                                        <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
+                                            <div class="card text-white bg-info" >
+                                                <div class="card-header card5day-header">12/24</div>
+                                                <div class="card-body single-day-body">
+                                                    
+                                                    <div class="row my-row">
+                                                        Icon
+                                                    </div>
+                                                    <div class="row my-row">
+                                                        Temp: 88  F
+                                                    </div>
+                                                    <div class="row my-row">
+                                                        Humidity: 43%
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div> 
+
+                                </div>
         
                             </div>
         
@@ -103,7 +282,7 @@
         <footer class="footer mt-auto bg-dark">
             <div class="foot-container">
 
-                <span class="my-foot-text">© 2020 v1.0 - updated: 7/19 by S. Arrazola</span>
+                <span class="my-foot-text">© 2020 v1.1 - updated: 7/19 by S. Arrazola</span>
                 
             </div>
         </footer>

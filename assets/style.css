@@ -9,17 +9,42 @@ body {
     
 }
 
+/* temp class for skeleton framing */
 .my-container {
     border: 3px solid green;
     margin-top: 20px;
 }
-
+/* temp class for skeleton framing */
 .my-row {
     border: 3px solid red;
 }
-
+/* temp class for skeleton framing */
 .my-col {
     border: 3px dotted blue;
+}
+
+/* class used to style 5-day forcast card body area that houses individual day forcast cards */
+.card5day-body {
+    /* remove bottom padding since the cards have a bottom margin */
+    padding-bottom: 0px;
+}
+
+/* class used to style individual 5-day forcast card's header (date) */
+.card5day-header {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+/* styling for individual 5-day forcast card's inner body */
+.single-day-body {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 10px;
+}
+
+/* hide class used to remove content right of search area when nothing has yet been searched */
+.hide {
+    display: none;
 }
 
 /* Sticky footer properties */
