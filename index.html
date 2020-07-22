@@ -60,9 +60,9 @@
                                         
                                         <input type="text" class="form-control" placeholder="Enter a City" aria-label="enter city name" aria-describedby="search button">
 
-                                        <div class="input-group-append">
+                                        <div class="input-group-append search">
 
-                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                            <button class="btn btn-outline-secondary" type="button" id="search-button">
                                                 <i class="fas fa-search"></i>
                                             </button>
 
@@ -85,11 +85,10 @@
 
                                 <div class="card-body text-dark">
                                     
-                                    <div class="list-group list-group-flush">
+                                    <div class="list-group list-group-flush" id="recent-cities-btns">
                                         
                                         <!-- example list item buttons to be programatically added -->
-                                        <button type="button" class="list-group-item list-group-item-action">Washington, DC</button>
-                                        <button type="button" class="list-group-item list-group-item-action">Detroit, MI</button>
+                                        <!-- <button type="button" class="list-group-item list-group-item-action">Washington, DC</button> -->
                                         
                                     </div>
 
@@ -108,34 +107,34 @@
                             <!-- today's forcast card for selected city - styled to extend to maximum width of its container-->
                             <div class="card border-dark" style="width: 100%;">
         
-                                <div class="card-header">Washington, DC - 12/19/2020</div>
+                                <div class="card-header" id="current-city-date"></div>
 
                                 <div class="card-body text-dark">
                                  
                                     <div class="row my-row">
 
-                                        <div class="col-4 my-col">
+                                        <div class="col-4 my-col" id="current-weather-icon">
 
-                                            Current Weather Icon
+                                            <!-- Current Weather Icon -->
 
                                         </div>
 
                                         <div class="col-8 my-col">
                                             
-                                            <div class="row my-row">
-                                                Temperature
+                                            <div class="row my-row" id="current-temp">
+                                                <!-- Temperature Display  -->
                                             </div>
                                             
-                                            <div class="row my-row">
-                                                Humidity
+                                            <div class="row my-row" id="current-humidity">
+                                                <!-- Humidity Display -->
                                             </div>
 
-                                            <div class="row my-row">
-                                                Wind speed
+                                            <div class="row my-row" id="current-wind">
+                                                <!-- Wind Speed Display -->
                                             </div>
 
-                                            <div class="row my-row">
-                                                UV index
+                                            <div class="row my-row" id="current-uvi">
+                                                <!-- UV Index Display -->
                                             </div>
 
                                         </div>
@@ -282,7 +281,7 @@
         <footer class="footer mt-auto bg-dark">
             <div class="foot-container">
 
-                <span class="my-foot-text">© 2020 v1.1 - updated: 7/19 by S. Arrazola</span>
+                <span class="my-foot-text">© 2020 v1.2 - updated: 7/21 by S. Arrazola</span>
                 
             </div>
         </footer>

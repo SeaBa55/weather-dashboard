@@ -37,7 +37,21 @@ The following image demonstrates the application functionality:
 ## Version History
 weather-dashboard_v1.0 - Created basic site skeleton with nav bar, and footer.
 
+weather-dashboard_v1.1 - Added card for the search area with a text input and search button with search icon (index.html lines 53-75); Added card containing flush list-group buttons with dummy cities (for styling reference) to the recent cities area (index.html lines 82-98); Added card containing skeleton for the current day forcast, with containers for the current wather icon, temperature, humidity, wind speed, and uv index (index.html lines 109-147); Added card container for the 5-day forcast, which houses cards containing rough skeletons for the date, weather icon, temperature, and humidity, for each of the days in the 5-day forcast (index.html lines 164-263).
+
+weather-dashboard_v1.2 - Added functionality to the search bar, which initiates an open weather api call, populates a city button to the recent cities area, and displays current weather (script.js lines 9-20, 36-63, 67-95, 99-127, 130-175); Added "on-click" event listener to the recent cities div to disply localstorage weather data for the selected city (script.js lines 24-32).  
+
 ## Wish List
+
+Add delete buttons to all recently city buttons to remove them individualy from viewport.
+
+Add a toggle button to all recently city buttons to select a default city to view.
+
+Add functionality to 5-day forcast so that user can get a closer look at the weather for a particular day in the future by clicking on the respective display card.
+
+Add call-back function that updates weather every hour
+
+Have every new instance of recent cities, call the main api to refresh weather info for that city.
 
 - - -
 © 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
