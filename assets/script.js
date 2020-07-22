@@ -1,6 +1,9 @@
 // OpenWeather API Key 
 var key = "63bf744b035f495cccad8662678a851d";
 
+// mitigate cors issues by prepending this to api call url - still poorly understood why this happens
+var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
+
 // populate recent cities area from localstorage on page start
 recentCities();
 
@@ -40,6 +43,8 @@ function currentWeather(city) {
 
     // ajax call to the open weather api - fetch(queryURL) may also be used for this pourpose
     $.ajax({
+        async: true,
+        crossDomain: true,
         url: queryURL,
         method: "GET"
     })
@@ -71,6 +76,8 @@ function uvIndex(r) {
 
     // ajax call to the open weather api - fetch(queryURL) may also be used for this pourpose
     $.ajax({
+        async: true,
+        crossDomain: true,
         url: queryURL,
         method: "GET"
     })
