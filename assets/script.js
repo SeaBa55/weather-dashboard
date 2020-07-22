@@ -1,7 +1,7 @@
 // OpenWeather API Key 
 var key = "63bf744b035f495cccad8662678a851d";
 
-// mitigate cors issues by prepending this to api call url - still poorly understood why this happens
+// mitigate cors issues by prepending heroku proxy to api call url - still poorly understood how to mitigate without heroku work-around
 var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
 
 // populate recent cities area from localstorage on page start
@@ -39,14 +39,14 @@ $("#recent-cities-btns").on("click", function() {
 function currentWeather(city) {
 
     // querry url for open weather api call
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
+    var queryURL = corsAnywhere + "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
 
     // ajax call to the open weather api - fetch(queryURL) may also be used for this pourpose
     $.ajax({
         async: true,
         crossDomain: true,
         url: queryURL,
-        method: "GET"
+        method: "GET",
     })
     
     // promise - on api responce, execute the following
@@ -72,7 +72,7 @@ function currentWeather(city) {
 function uvIndex(r) {
 
     // querry url for open weather uv index api call - uses lat and lon form previous api call response structure
-    var queryURL = "http://api.openweathermap.org/data/2.5/uvi?" + "&appid=" + key + "&lat=" + r.coord.lat + "&lon=" + r.coord.lon;
+    var queryURL = corsAnywhere + "http://api.openweathermap.org/data/2.5/uvi?" + "&appid=" + key + "&lat=" + r.coord.lat + "&lon=" + r.coord.lon;
 
     // ajax call to the open weather api - fetch(queryURL) may also be used for this pourpose
     $.ajax({
