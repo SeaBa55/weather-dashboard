@@ -2,7 +2,7 @@
 var key = "63bf744b035f495cccad8662678a851d";
 
 // mitigate cors issues by prepending heroku proxy to api call url - still poorly understood how to mitigate without heroku work-around
-var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
+// var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
 
 // populate recent cities area from localstorage on page start
 recentCities();
@@ -39,7 +39,7 @@ $("#recent-cities-btns").on("click", function() {
 function currentWeather(city) {
 
     // querry url for open weather api call
-    var queryURL = corsAnywhere + "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
 
     // ajax call to the open weather api - fetch(queryURL) may also be used for this pourpose
     $.ajax({
@@ -63,6 +63,10 @@ function currentWeather(city) {
         // function call uvIndex adds uv index to response object structure
         uvIndex(response);
 
+        // function call display5Day
+        // api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={your api key}
+        display5Day();
+
     });
 
 }
@@ -72,7 +76,7 @@ function currentWeather(city) {
 function uvIndex(r) {
 
     // querry url for open weather uv index api call - uses lat and lon form previous api call response structure
-    var queryURL = corsAnywhere + "http://api.openweathermap.org/data/2.5/uvi?" + "&appid=" + key + "&lat=" + r.coord.lat + "&lon=" + r.coord.lon;
+    var queryURL = "https://api.openweathermap.org/data/2.5/uvi?" + "&appid=" + key + "&lat=" + r.coord.lat + "&lon=" + r.coord.lon;
 
     // ajax call to the open weather api - fetch(queryURL) may also be used for this pourpose
     $.ajax({
@@ -93,7 +97,7 @@ function uvIndex(r) {
 
         // function call recentCities adds city name from local storage to recent cities area as list button
         recentCities();
-        
+
         // function call displayCurrent passes city name to display from local storage
         displayCurrnet(response.name);
 
@@ -153,7 +157,7 @@ function displayCurrnet(city) {
             var currentDate = moment().format('dddd')+", "+moment().format('MMMM Do YYYY');
 
             // create weather icon image source url with current weather icon
-            var imgURL = "http://openweathermap.org/img/wn/" + currentConditions.weather[0].icon + "@2x.png";
+            var imgURL = "https://openweathermap.org/img/wn/" + currentConditions.weather[0].icon + "@2x.png";
            
             // clear previous weather icon image from current-weather-icon div
             $("#current-weather-icon").empty();

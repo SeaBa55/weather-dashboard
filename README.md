@@ -41,6 +41,8 @@ weather-dashboard_v1.1 - Added card for the search area with a text input and se
 
 weather-dashboard_v1.2 - Added functionality to the search bar, which initiates an open weather api call, populates a city button to the recent cities area, and displays current weather (script.js lines 9-20, 36-63, 67-95, 99-127, 130-175); Added "on-click" event listener to the recent cities div to disply localstorage weather data for the selected city (script.js lines 24-32).  
 
+weather-dashboard_v1.3 -
+
 ## Wish List
 
 Add delete buttons to all recently city buttons to remove them individualy from viewport.
