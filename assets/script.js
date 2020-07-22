@@ -153,7 +153,7 @@ function displayCurrnet(city) {
             var currentDate = moment().format('dddd')+", "+moment().format('MMMM Do YYYY');
 
             // create weather icon image source url with current weather icon
-            var imgURL = "http://openweathermap.org/img/wn/" + currentConditions.weather[0].icon + "@2x.png";
+            var imgURL = corsAnywhere + "http://openweathermap.org/img/wn/" + currentConditions.weather[0].icon + "@2x.png";
            
             // clear previous weather icon image from current-weather-icon div
             $("#current-weather-icon").empty();
