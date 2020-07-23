@@ -41,7 +41,7 @@ weather-dashboard_v1.1 - Added card for the search area with a text input and se
 
 weather-dashboard_v1.2 - Added functionality to the search bar, which initiates an open weather api call, populates a city button to the recent cities area, and displays current weather (script.js lines 9-20, 36-63, 67-95, 99-127, 130-175); Added "on-click" event listener to the recent cities div to disply localstorage weather data for the selected city (script.js lines 24-32).  
 
-weather-dashboard_v1.3 - Removed uvIndex function and associate uv index open weather api call; Using the one-call open weather api in conjunction with moment-timezone.js we are able to make one api call to get both the 5 day forecast and uvi data; Added fucntion oneCall to get the 7-day forecast data from open weather and display5Day to display all pertinent info to the 5-day forecast area (script.js lines 35, 66, 91, 94, 100, 103, 111-245, 299, 314, 320); 
+weather-dashboard_v1.3 - Removed uvIndex function and associate uv index open weather api call; Using the one-call open weather api in conjunction with moment-timezone.js we are able to make one api call to get both the 5 day forecast and uvi data; Added fucntion oneCall to get the 7-day forecast data from open weather and display5Day to display all pertinent info to the 5-day forecast area (script.js lines 35, 66, 91, 94, 100, 103, 111-245, 299, 314, 320); Removed all card containers for the 5-day forecast since I decsided to make them programmatically added (index.html lines 162-262). 
 
 ## Wish List
 
