@@ -1,11 +1,11 @@
 // OpenWeather API Key 
 var key = "63bf744b035f495cccad8662678a851d";
 
-// mitigate cors issues by prepending heroku proxy to api call url - still poorly understood how to mitigate without heroku work-around
-// var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
-
 // populate recent cities area from localstorage on page start
 recentCities();
+
+// function call currentWeather passes last searched city name from local storage - makes open weather api call to display the current weather for last searched 
+currentWeather(localStorage.getItem("last_searched"));
 
 
 // search button div event listener to make open weather api call
@@ -29,9 +29,13 @@ $("#recent-cities-btns").on("click", function() {
     // get city name from target id and save it to var "city" 
     var city = event.target.id;
 
-    // function call displayCurrent passes city name to display from local storage
+    // set last_searched key word with currently selected city name as value in local storage
+    localStorage.setItem("last_searched",city);
+
+    // function call displayCurrent passes city name to display current weather from local storage
     displayCurrnet(city);
 
+    // function call display5Day passes city name to display 5-day weather forecast from local storage
     display5Day(city);
 
 });
@@ -61,6 +65,9 @@ function currentWeather(city) {
             alert("Please type valid city");
         
         }
+        
+        // set last_searched key word with currently searched city name as value in local storage
+        localStorage.setItem("last_searched",response.name);
 
         // function call oneCall creates a new open weather instance to get current weather, and 7 day forecast w/ uv index
         oneCall(response);
@@ -251,31 +258,54 @@ function recentCities () {
     // clear all children of the recent cities container - without this the recentCities function would append duplicate buttons to recentCities if a city was search more than once
     $("#recent-cities-btns").empty();
     
-    // loop through local storage to append buttons with local storage keys as their names 
+    // loop through local storage to append buttons with local storage keys as their names - guarantee's that follow logic will not execute if local storage is empty
     for ( i=0 ; i < localStorage.length ; i++ ) {
+        
+        // this conditional enables the storage of other parameters in local storage without worry of creating a button for it
+        if(isJSONcity(i)){
+            // create button element
+            let button = $("<button>");
 
-        // create button element
-        let button = $("<button>");
+            // format button appearance using bootstrap classes 
+            $(button).addClass('list-group-item list-group-item-action');
 
-        // format button appearance using bootstrap classes 
-        $(button).addClass('list-group-item list-group-item-action');
+            // give each button a unique id using the current local storage key, which is also the city name it represents
+            $(button).attr("id", localStorage.key(i));
 
-        // give each button a unique id using the current local storage key, which is also the city name it represents
-        $(button).attr("id", localStorage.key(i));
+            // give button attribute type button
+            $(button).attr("type", "button");
 
-        // give button attribute type button
-        $(button).attr("type", "button");
+            // give each button a unique label text using the current local storage key, which is also the city name it represents
+            $(button).text(localStorage.key(i));
 
-        // give each button a unique label text using the current local storage key, which is also the city name it represents
-        $(button).text(localStorage.key(i));
+            // append button to recent cities div area
 
-        // append button to recent cities div area
-        $("#recent-cities-btns").append(button);
+            $("#recent-cities-btns").append(button);
+        }
 
     }
 
 };
 
+// function isJSONcity validates if the expression "local storage key value equals city name value (in its corresponding structure)" can be evaluated for each ittertion through localstorage
+function isJSONcity(i) {
+
+    try {
+
+        // if local storage key value is equal to the city name (in its corresponding structure) is evaluated, then return true
+        JSON.parse(localStorage.getItem(localStorage.key(i))).name == localStorage.key(i);
+
+        return true;
+
+    } catch (error) {
+        
+        // if local storage key value is equal to the city name (in its corresponding structure) generates console error, then return false
+
+        return false;
+
+    }
+
+}
 
 // function displayCurrent displays weather data from local storage to the current weather area
 function displayCurrnet(city) {

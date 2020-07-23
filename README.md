@@ -43,6 +43,8 @@ weather-dashboard_v1.2 - Added functionality to the search bar, which initiates 
 
 weather-dashboard_v1.3 - Removed uvIndex function and associate uv index open weather api call; Using the one-call open weather api in conjunction with moment-timezone.js we are able to make one api call to get both the 5 day forecast and uvi data; Added fucntion oneCall to get the 7-day forecast data from open weather and display5Day to display all pertinent info to the 5-day forecast area (script.js lines 35, 66, 91, 94, 100, 103, 111-245, 299, 314, 320); Removed all card containers for the 5-day forecast since I decsided to make them programmatically added (index.html lines 162-262). 
 
+weather-dashboard_v1.4 - Added function call currentWeather which passes last searched city name from local storage, inorder to makes open weather api call to display the current weather for last searched upon page load. The last searched city is updated upon search in the currentWeather function call (to grab correct city name format from the api querry), and upon recent cities button selection (script.js lines 8,33,70); Added conditional if statment to the recent citties button creation loop inside the recentCities function, that enables storage of other parameters in local storage without the worry of creating a button for that item in local storage. Fucntion isJSONcity employs error handeling methods try/catch, to test if local storage key value equals city name value (in its corresponding structure) can be evaluated for each element in local storage. If the expression can be resolved it returns true, if the expression triggers a console error then catch returns false back to the conditional that gate keeps the creation of recent cities buttons (script.js lines 265, 291-308). 
+
 ## Wish List
 
 Add delete buttons to all recently city buttons to remove them individualy from viewport.
@@ -51,9 +53,7 @@ Add a toggle button to all recently city buttons to select a default city to vie
 
 Add functionality to 5-day forcast so that user can get a closer look at the weather for a particular day in the future by clicking on the respective display card.
 
-Add call-back function that updates weather every hour
-
-Have every new instance of recent cities, call the main api to refresh weather info for that city.
+Add call-back function that updates weather every hour, and displays last update timestamp
 
 - - -
 © 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
