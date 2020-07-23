@@ -32,6 +32,8 @@ $("#recent-cities-btns").on("click", function() {
     // function call displayCurrent passes city name to display from local storage
     displayCurrnet(city);
 
+    display5Day(city);
+
 });
 
 
@@ -39,7 +41,7 @@ $("#recent-cities-btns").on("click", function() {
 function currentWeather(city) {
 
     // querry url for open weather api call
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + key;
 
     // ajax call to the open weather api - fetch(queryURL) may also be used for this pourpose
     $.ajax({
@@ -60,23 +62,19 @@ function currentWeather(city) {
         
         }
 
-        // function call uvIndex adds uv index to response object structure
-        uvIndex(response);
-
-        // function call display5Day
-        // api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={your api key}
-        display5Day();
+        // function call oneCall creates a new open weather instance to get current weather, and 7 day forecast w/ uv index
+        oneCall(response);
 
     });
 
 }
 
 
-// function uvIndex makes separate open weather api call to get uv index, and adds uv index to response object structure
-function uvIndex(r) {
+// function oneCall creates a new open weather instance to get current weather, and 7 day forecast w/ uv index, and adds the previous call's city name value to the new object structure
+function oneCall(r) {
 
-    // querry url for open weather uv index api call - uses lat and lon form previous api call response structure
-    var queryURL = "https://api.openweathermap.org/data/2.5/uvi?" + "&appid=" + key + "&lat=" + r.coord.lat + "&lon=" + r.coord.lon;
+    // querry url for open weather one-call api - uses lat and lon form previous api call response structure
+    var queryURL = "https://api.openweathermap.org/data/2.5/onecall?" + "&appid=" + key + "&lat=" + r.coord.lat + "&lon=" + r.coord.lon + "&units=imperial&exclude=hourly,minutely";
 
     // ajax call to the open weather api - fetch(queryURL) may also be used for this pourpose
     $.ajax({
@@ -88,22 +86,163 @@ function uvIndex(r) {
     
     // promise - on api responce execute the following
     .then(function(response) {
-    
-        // add uv index (uvi) value to original api cal responce "r", and overwrite response
-        response = Object.assign({uvi:response.value}, r);
+
+        // add city name (r.name) value to current api responce object structure, from original api call response "r" and overwrite r
+        r = Object.assign({name:r.name}, response)
         
-        // write api responce structure to local storage as JSON string, with the city name as the key word
-        localStorage.setItem(response.name,JSON.stringify(response));
+        // write accumulated api data for currrent city to local storage as JSON string, with the city name as the key word
+        localStorage.setItem(r.name,JSON.stringify(r));
 
         // function call recentCities adds city name from local storage to recent cities area as list button
         recentCities();
 
         // function call displayCurrent passes city name to display from local storage
-        displayCurrnet(response.name);
+        displayCurrnet(r.name);
+
+        // function call display5Day passes city name to display 5-day forecast from local storage
+        display5Day(r.name);
 
     });
 
 };
+
+
+// function display5Day displays 5-day forecast weather data from local storage to the 5-day forecast weather area
+function display5Day(r) {
+
+    // get local storage data for the local storage key that matches city name and save to forecastConditions as object
+    var forecastConditions = JSON.parse(localStorage.getItem(r));
+
+    $("#forcast-5day-container").empty();
+
+    // loop for 6 of the 8 availible daily forecast object arrays - todays forecast + 5 days
+    for (i=0; i < 6; i++) {
+
+        // create 5-day forecast display elements
+        // note: do not change 5-day forecast display elements var names without changing all associated id names in the loop - may generate confusion
+        var card5dFrcstSize = $("<div>");    
+        var card5dFrcst = $("<div>");
+        var card5dFrcstHdr = $("<div>");
+        var card5dFrcstBdy = $("<div>");
+        var card5dFrcstIcn = $("<div>");
+        var card5dIcnDiv = $("<div>");
+        var card5dFrcstTmp = $("<div>");
+        var card5dFrcstRH = $("<div>");
+
+        // if on the first loop itteration, we are processing the current date's forecast card - add class hide to remove it from viewport
+        if (i == 0) {
+
+            // format 5-day first forecast card appearance with class "hide" to remove it form viewport
+            $(card5dFrcstSize).addClass('hide');
+
+        }
+
+        // format 5-day forecast card appearances using bootstrap classes
+        $(card5dFrcstSize).addClass('col-lg-2 col-md-4 col-sm-3 mb-4 card5day');
+
+        // give each 5-day forecast card container a unique id using the loop ittaration parameter - "day-i"
+        $(card5dFrcstSize).attr("id", "day" + "-" + i);
+
+        // append card5dFrcstSize div to forecast-5day-container
+        $("#forcast-5day-container").append(card5dFrcstSize);
+
+
+        // format 5-day forecast card text and background appearances using bootstrap classes
+        $(card5dFrcst).addClass('card text-white bg-info');
+
+        // give each 5-day forecast card a unique id using the loop ittaration parameter - "card5dFrcst-i"
+        $(card5dFrcst).attr("id", "card5dFrcst" + "-" + i);
+
+        // append card5dFrcst card to card5dFrcstSize (day-i) container
+        $(card5dFrcstSize).append(card5dFrcst);
+
+
+        // format 5-day forecast card header text and appearances using bootstrap & custom CSS classes
+        $(card5dFrcstHdr).addClass('card-header card5day-header');
+
+        // give each 5-day forecast card header a unique id using the loop ittaration parameter - "card5dFrcstHdr-i" - **removed this line if unused**
+        $(card5dFrcstHdr).attr("id", "card5dFrcstHdr" + "-" + i);
+
+        // get date (MM/DD) using moment-timezone.js
+        date = moment.unix(forecastConditions.daily[i].dt).tz(forecastConditions.timezone).format('MM/DD');
+
+        // give each 5-day forecast card header date text - **need to create the date with moment-timezone** 
+        $(card5dFrcstHdr).text(date);
+
+        // append card5dFrcstHdr card to card5dFrcst (card5dFrcst-i) container
+        $(card5dFrcst).append(card5dFrcstHdr);
+
+
+        // format 5-day forecast card body appearances using bootstrap and custum CSS classes
+        $(card5dFrcstBdy).addClass('card-body single-day-body');
+
+        // give each 5-day forecast card a unique id using the loop ittaration parameter - "card5dFrcstBdy-i"
+        $(card5dFrcstBdy).attr("id", "card5dFrcstBdy" + "-" + i);
+
+        // append card5dFrcstBdy card to card5dFrcst (card5dFrcst-i) container
+        $(card5dFrcst).append(card5dFrcstBdy);
+
+
+        // format 5-day forecast card weather icon row div appearances using bootstrap & custom CSS classes - my row is a development only custom CSS class used for visualizing containers during initial front-end development
+        $(card5dFrcstIcn).addClass('row my-row');
+
+        // give each 5-day forecast card weather icon row div a unique id using the loop ittaration parameter - "card5dFrcstIcn-i" - **removed this line if unused**
+        $(card5dFrcstIcn).attr("id", "card5dFrcstIcn" + "-" + i);
+
+        // append card5dFrcstIcn row div to card5dFrcstBdy (card5dFrcstBdy-i) container
+        $(card5dFrcstBdy).append(card5dFrcstIcn); 
+
+
+        // format 5-day forecast card weather col div appearances using bootstrap & custom CSS classes - my col is a development only custom CSS class used for visualizing containers during initial front-end development
+        $(card5dIcnDiv).addClass('col-12 my-col justify-content-center');
+
+        // give each 5-day forecast card weather icon div a unique id using the loop ittaration parameter - "card5dIcnDiv-i" - **removed this line if unused**
+        $(card5dIcnDiv).attr("id", "card5dIcnDiv" + "-" + i);
+
+        // create weather icon image source url with current weather icon - **need to find the proper way to get icon**
+        var imgURL = "https://openweathermap.org/img/wn/" + forecastConditions.daily[i].weather[0].icon + ".png";
+
+        // append current weather icon image from url to card5dIcnDiv-i div
+        $(card5dIcnDiv).append('<img src =' + imgURL + '>');
+
+        // append card5dFrcstIcn col div to card5dFrcstIcn row div (card5dFrcstIcn-i) container
+        $(card5dFrcstIcn).append(card5dIcnDiv);
+
+        
+        // format 5-day forecast card temperature div appearances using bootstrap & custom CSS classes - my row is a development only custom CSS class used for visualizing containers during initial front-end development
+        $(card5dFrcstTmp).addClass('row my-row');
+
+        // give each 5-day forecast card temperature div a unique id using the loop ittaration parameter - "card5dFrcstTmp-i" - **removed this line if unused**
+        $(card5dFrcstTmp).attr("id", "card5dFrcstTmp" + "-" + i);
+
+        // get the day temperature for the current date with no decemal place
+        var Temp = (forecastConditions.daily[i].temp.day).toFixed(0);
+
+        // give each 5-day forecast card temperature div text reflecting the temperature for that date 
+        $(card5dFrcstTmp).text("Temp: " + Temp + String.fromCharCode(176) + "F");
+
+        // append card5dFrcstTmp div to card5dFrcstBdy (card5dFrcstBdy-i) container
+        $(card5dFrcstBdy).append(card5dFrcstTmp);
+
+
+        // format 5-day forecast card relative humidity div appearances using bootstrap & custom CSS classes - my row is a development only custom CSS class used for visualizing containers during initial front-end development
+        $(card5dFrcstRH).addClass('row my-row');
+
+        // give each 5-day forecast card relative humidity div a unique id using the loop ittaration parameter - "card5dFrcstRH-i" - **removed this line if unused**
+        $(card5dFrcstRH).attr("id", "card5dFrcstRH" + "-" + i);
+
+        // get relative humidity for the current date with no decemal place
+        var RH = forecastConditions.daily[i].humidity;
+
+        // give each 5-day forecast card relative humidity div text reflecting the relative humidity for that date 
+        $(card5dFrcstRH).text("Humidity: " + RH + "%");
+
+        // append card5dFrcstRH div to card5dFrcstBdy (card5dFrcstBdy-i) container
+        $("#card5dFrcstBdy" + "-" + i).append(card5dFrcstRH);
+
+    }
+
+}
 
 
 // function recentCities adds city name from local storage to recent cities area as list button
@@ -150,14 +289,14 @@ function displayCurrnet(city) {
             // get local storage data for the local storage key that matches city and save to currentConditions as object
             var currentConditions = JSON.parse(localStorage.getItem(localStorage.key(i)));
 
-            // get temperature data form currentConditions object and convert form deg K to deg F with singe digit precision 
-            var currentTemp = (((currentConditions.main.temp-273.15)*(9/5))+32).toFixed(1);
+            // get temperature data form currentConditions object - singe digit precision 
+            var currentTemp = (currentConditions.current.temp).toFixed(1);
 
             // get current date using moment.js
             var currentDate = moment().format('dddd')+", "+moment().format('MMMM Do YYYY');
 
             // create weather icon image source url with current weather icon
-            var imgURL = "https://openweathermap.org/img/wn/" + currentConditions.weather[0].icon + "@2x.png";
+            var imgURL = "https://openweathermap.org/img/wn/" + currentConditions.current.weather[0].icon + "@2x.png";
            
             // clear previous weather icon image from current-weather-icon div
             $("#current-weather-icon").empty();
@@ -171,20 +310,17 @@ function displayCurrnet(city) {
             // Temperature Display
             $("#current-temp").text("Temperature: " + currentTemp + String.fromCharCode(176) + "F");
 
-            // History Display
-            $("#current-humidity").text("Humidity: " + currentConditions.main.humidity + "%");
+            // Relative Humidity Display
+            $("#current-humidity").text("Humidity: " + currentConditions.current.humidity + "%");
 
             // Wind Speed Display
-            $("#current-wind").text("Wind Speed: " + currentConditions.wind.speed + "mph");
+            $("#current-wind").text("Wind Speed: " + currentConditions.current.wind_speed + " mph");
             
             // UV Index Display
-            $("#current-uvi").text("UV Index: " + currentConditions.uvi);
+            $("#current-uvi").text("UV Index: " + currentConditions.current.uvi);
 
         }
 
     }
 
 };
-
-
-

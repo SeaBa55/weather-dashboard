@@ -152,115 +152,34 @@
                             <!-- 5-day forcast card - styled to extend to maximum width of its container-->
                             <div class="card border-dark" style="width: 100%;">
         
-                                <div class="card-header">5-Day Forcast</div>
+                                <div class="card-header">5-Day Forecast</div>
 
                                 <div class="card-body card5day-body text-dark">
                                     
                                     <!-- center 5-day forcast cards within card container -->
-                                    <div class="row justify-content-center">
+                                    <div class="row justify-content-center" id="forcast-5day-container">
                                         
-                                        <!-- individual day card for 5-day forcast area -->
-                                        <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
-                                            <div class="card text-white bg-info">
-                                                <div class="card-header card5day-header">12/20</div>
-                                                <div class="card-body single-day-body">
-                                                    
-                                                    <div class="row my-row">
-                                                        Icon
+                                        <!-- individual day card for 5-day forcast area - sample layout -->
+                                        <!-- <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
+                                                <div class="card text-white bg-info">
+                                                    <div class="card-header card5day-header">12/20</div>
+                                                    <div class="card-body single-day-body">
+                                                        
+                                                        <div class="row my-row">
+                                                            Icon
+                                                        </div>
+                                                        <div class="row my-row">
+                                                            Temp: 88  F
+                                                        </div>
+                                                        <div class="row my-row">
+                                                            Humidity: 43%
+                                                        </div>
+                                            
+                                                        
                                                     </div>
-                                                    <div class="row my-row">
-                                                        Temp: 88  F
-                                                    </div>
-                                                    <div class="row my-row">
-                                                        Humidity: 43%
-                                                    </div>
-                                        
-                                                    
                                                 </div>
-                                            </div>
-                                        </div>     
+                                            </div> -->
                                         
-                                        <!-- individual day card for 5-day forcast area -->
-                                        <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
-                                            <div class="card text-white bg-info" >
-                                                <div class="card-header card5day-header">12/21</div>
-                                                <div class="card-body single-day-body">
-                                                    
-                                                    <div class="row my-row">
-                                                        Icon
-                                                    </div>
-                                                    <div class="row my-row">
-                                                        Temp: 88  F
-                                                    </div>
-                                                    <div class="row my-row">
-                                                        Humidity: 43%
-                                                    </div>
-                                        
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- individual day card for 5-day forcast area -->
-                                        <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
-                                            <div class="card text-white bg-info">
-                                                <div class="card-header card5day-header">12/22</div>
-                                                <div class="card-body single-day-body">
-                                                    
-                                                    <div class="row my-row">
-                                                        Icon
-                                                    </div>
-                                                    <div class="row my-row">
-                                                        Temp: 88  F
-                                                    </div>
-                                                    <div class="row my-row">
-                                                        Humidity: 43%
-                                                    </div>
-                                        
-                                                </div>
-                                            </div>
-                                        </div>     
-                                        
-                                        <!-- individual day card for 5-day forcast area -->
-                                        <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
-                                            <div class="card text-white bg-info" >
-                                                <div class="card-header card5day-header">12/23</div>
-                                                <div class="card-body single-day-body">
-                                                    
-                                                    <div class="row my-row">
-                                                        Icon
-                                                    </div>
-                                                    <div class="row my-row">
-                                                        Temp: 88  F
-                                                    </div>
-                                                    <div class="row my-row">
-                                                        Humidity: 43%
-                                                    </div>
-                                        
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- individual day card for 5-day forcast area -->
-                                        <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
-                                            <div class="card text-white bg-info" >
-                                                <div class="card-header card5day-header">12/24</div>
-                                                <div class="card-body single-day-body">
-                                                    
-                                                    <div class="row my-row">
-                                                        Icon
-                                                    </div>
-                                                    <div class="row my-row">
-                                                        Temp: 88  F
-                                                    </div>
-                                                    <div class="row my-row">
-                                                        Humidity: 43%
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    
                                     </div> 
 
                                 </div>
@@ -293,6 +212,8 @@
 
     <!-- moment api library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.31/moment-timezone-with-data-10-year-range.js"></script>
 
     <!-- javascript relative path -->
     <script src="assets/script.js"></script>
