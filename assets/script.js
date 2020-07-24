@@ -4,9 +4,20 @@ var key = "63bf744b035f495cccad8662678a851d";
 // populate recent cities area from localstorage on page start
 recentCities();
 
-// function call currentWeather passes last searched city name from local storage - makes open weather api call to display the current weather for last searched 
-currentWeather(localStorage.getItem("last_searched"));
 
+if(localStorage.getItem("last_searched") == null){
+// function call currentWeather passes last searched city name from local storage - makes open weather api call to display the current weather for last searched 
+// currentWeather(localStorage.getItem("last_searched"));
+
+$("#weatherDisplay").addClass("hide align-middle");
+$("#recent-cities").addClass("hide");
+
+}else{
+
+    // function call currentWeather passes last searched city name from local storage - makes open weather api call to display the current weather for last searched 
+    currentWeather(localStorage.getItem("last_searched"));
+
+}
 
 // search button div event listener to make open weather api call
 $(".search").on("click", function() {
@@ -57,14 +68,6 @@ function currentWeather(city) {
     
     // promise - on api responce, execute the following
     .then(function(response) {
-        
-        // validation criteria for faulty search input - api did not understand city querry
-        if(response.status == 404){
-    
-            // change this to on page validation - debug only
-            alert("Please type valid city");
-        
-        }
         
         // set last_searched key word with currently searched city name as value in local storage
         localStorage.setItem("last_searched",response.name);
@@ -279,8 +282,10 @@ function recentCities () {
             $(button).text(localStorage.key(i));
 
             // append button to recent cities div area
-
             $("#recent-cities-btns").append(button);
+
+            // remove hide class from recent cities if not empty
+            $("#recent-cities").removeClass("hide");
         }
 
     }
@@ -364,6 +369,8 @@ function displayCurrnet(city) {
                 // else set color to high (danger) 
                 $("#current-uvi").addClass("badge-danger");
             }
+
+            $("#weatherDisplay").removeClass("hide");
 
         }
 
