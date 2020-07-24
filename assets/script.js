@@ -242,7 +242,7 @@ function display5Day(r) {
         var RH = forecastConditions.daily[i].humidity;
 
         // give each 5-day forecast card relative humidity div text reflecting the relative humidity for that date 
-        $(card5dFrcstRH).text("Humidity: " + RH + "%");
+        $(card5dFrcstRH).text("RH: " + RH + "%");
 
         // append card5dFrcstRH div to card5dFrcstBdy (card5dFrcstBdy-i) container
         $("#card5dFrcstBdy" + "-" + i).append(card5dFrcstRH);
@@ -346,8 +346,24 @@ function displayCurrnet(city) {
             // Wind Speed Display
             $("#current-wind").text("Wind Speed: " + currentConditions.current.wind_speed + " mph");
             
+            var uvi = currentConditions.current.uvi;
+
             // UV Index Display
-            $("#current-uvi").text("UV Index: " + currentConditions.current.uvi);
+            $("#current-uvi").text("UV Index: " + uvi);
+
+            // remove any existing bootstrap button color classes from badge
+            $("#current-uvi").removeClass("badge-success badge-warning badge-danger");
+
+            // if uvi is less than 3 set badge color to low (success)
+            if(uvi < 3){
+                $("#current-uvi").addClass("badge-success");
+                // else if uvi is greater than or equal to 3 and less than 8 set badge color to moderate (warning)  
+            }else if(uvi >= 3 && uvi < 8){
+                $("#current-uvi").addClass("badge-warning");
+            }else{
+                // else set color to high (danger) 
+                $("#current-uvi").addClass("badge-danger");
+            }
 
         }
 

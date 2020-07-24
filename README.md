@@ -45,6 +45,8 @@ weather-dashboard_v1.3 - Removed uvIndex function and associate uv index open we
 
 weather-dashboard_v1.4 - Added function call currentWeather which passes last searched city name from local storage, inorder to makes open weather api call to display the current weather for last searched upon page load. The last searched city is updated upon search in the currentWeather function call (to grab correct city name format from the api querry), and upon recent cities button selection (script.js lines 8,33,70); Added conditional if statment to the recent citties button creation loop inside the recentCities function, that enables storage of other parameters in local storage without the worry of creating a button for that item in local storage. Fucntion isJSONcity employs error handeling methods try/catch, to test if local storage key value equals city name value (in its corresponding structure) can be evaluated for each element in local storage. If the expression can be resolved it returns true, if the expression triggers a console error then catch returns false back to the conditional that gate keeps the creation of recent cities buttons (script.js lines 265, 291-308). 
 
+weather-dashboard_v1.5 - Added pill badge around UV Index text in the current weather area, and created conditional statements that toggle the bage color to reflect the level of severity of the UV Index (index.html lines 139)(script.js lines 349-366).
+
 ## Wish List
 
 Add delete buttons to all recently city buttons to remove them individualy from viewport.
