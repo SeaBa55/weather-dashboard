@@ -11,16 +11,21 @@ body {
 
 /* temp class for skeleton framing */
 .my-container {
-    border: 3px solid green;
+    /* border: 1px solid black; */
     margin-top: 20px;
 }
 /* temp class for skeleton framing */
-.my-row {
+/* .my-row {
     border: 3px solid red;
-}
+} */
 /* temp class for skeleton framing */
-.my-col {
+/* .my-col {
     border: 3px dotted blue;
+} */
+
+#updated-forecast-timestamp {
+    color: lightgray;
+    font-style: italic;
 }
 
 /* class used to style 5-day forcast card body area that houses individual day forcast cards */

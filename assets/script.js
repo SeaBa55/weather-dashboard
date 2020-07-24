@@ -4,20 +4,43 @@ var key = "63bf744b035f495cccad8662678a851d";
 // populate recent cities area from localstorage on page start
 recentCities();
 
+// hide update spinner
+$("#update-forcast").addClass("hide");
+    
+// hide updated-forecast-timestamp
+$("#updated-forecast-timestamp").addClass("hide");
 
+// hide weather display if no cities were searched
 if(localStorage.getItem("last_searched") == null){
-// function call currentWeather passes last searched city name from local storage - makes open weather api call to display the current weather for last searched 
-// currentWeather(localStorage.getItem("last_searched"));
 
-$("#weatherDisplay").addClass("hide align-middle");
-$("#recent-cities").addClass("hide");
+    // hide the weather display and recent cities area if local storage doesn't have a last searched item - cases 1: first time using web page; case 2: local storage has been cleared
+    $("#weatherDisplay").addClass("hide align-middle");
+    $("#recent-cities").addClass("hide");
 
 }else{
+
+    // call updatedForecast function
+    updateForecast()
+
+    // set routine timeinterval of 10 min to call updatedForecast function - periodically update weather forecast
+    var interval = setInterval(updateForecast,600000); 
+
+}
+
+
+function updateForecast(){
+
+    // hide updated-forecast-timestamp
+    $("#updated-forecast-timestamp").addClass("hide");
+
+    // show update spinner
+    $("#update-forcast").removeClass("hide");
 
     // function call currentWeather passes last searched city name from local storage - makes open weather api call to display the current weather for last searched 
     currentWeather(localStorage.getItem("last_searched"));
 
 }
+
 
 // search button div event listener to make open weather api call
 $(".search").on("click", function() {
@@ -48,6 +71,8 @@ $("#recent-cities-btns").on("click", function() {
 
     // function call display5Day passes city name to display 5-day weather forecast from local storage
     display5Day(city);
+
+    updateForecast();
 
 });
 
@@ -111,6 +136,18 @@ function oneCall(r) {
 
         // function call display5Day passes city name to display 5-day forecast from local storage
         display5Day(r.name);
+
+        // hide update spinner
+        $("#update-forcast").addClass("hide");
+
+        // get current time (h:mm a) using moment-timezone.js
+        timeStamp = moment.unix(r.current.dt).tz(r.timezone).format('h:mm a');
+
+
+        $("#updated-forecast-timestamp").text("Last updated - " + timeStamp + " - " + r.timezone);
+
+        // show updated-forecast-timestamp
+        $("#updated-forecast-timestamp").removeClass("hide");
 
     });
 
@@ -176,7 +213,7 @@ function display5Day(r) {
         // get date (MM/DD) using moment-timezone.js
         date = moment.unix(forecastConditions.daily[i].dt).tz(forecastConditions.timezone).format('MM/DD');
 
-        // give each 5-day forecast card header date text - **need to create the date with moment-timezone** 
+        // give each 5-day forecast card header date text
         $(card5dFrcstHdr).text(date);
 
         // append card5dFrcstHdr card to card5dFrcst (card5dFrcst-i) container
@@ -209,7 +246,7 @@ function display5Day(r) {
         // give each 5-day forecast card weather icon div a unique id using the loop ittaration parameter - "card5dIcnDiv-i" - **removed this line if unused**
         $(card5dIcnDiv).attr("id", "card5dIcnDiv" + "-" + i);
 
-        // create weather icon image source url with current weather icon - **need to find the proper way to get icon**
+        // create weather icon image source url with current weather icon - used small icon by removing @2x in the URL
         var imgURL = "https://openweathermap.org/img/wn/" + forecastConditions.daily[i].weather[0].icon + ".png";
 
         // append current weather icon image from url to card5dIcnDiv-i div
@@ -327,8 +364,8 @@ function displayCurrnet(city) {
             // get temperature data form currentConditions object - singe digit precision 
             var currentTemp = (currentConditions.current.temp).toFixed(1);
 
-            // get current date using moment.js
-            var currentDate = moment().format('dddd')+", "+moment().format('MMMM Do YYYY');
+            // get date (MM/DD) using moment-timezone.js
+            var currentDate = moment.unix(currentConditions.current.dt).tz(currentConditions.timezone).format('dddd, MMMM Do YYYY');
 
             // create weather icon image source url with current weather icon
             var imgURL = "https://openweathermap.org/img/wn/" + currentConditions.current.weather[0].icon + "@2x.png";

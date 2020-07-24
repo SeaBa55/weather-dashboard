@@ -107,7 +107,12 @@
                             <!-- today's forcast card for selected city - styled to extend to maximum width of its container-->
                             <div class="card border-dark" style="width: 100%;">
         
-                                <div class="card-header" id="current-city-date"></div>
+                                <div class="card-header" id="current-city-date">
+
+                                    <!-- spinner - displays in current weather card header on page reload -->
+                                    <div class="spinner-border float-right" role="status"></div>
+
+                                </div>
 
                                 <div class="card-body text-dark">
                                  
@@ -144,6 +149,26 @@
 
                                     </div>
 
+                                    <div class="row my-row">
+
+                                        <div class="col-12 my-col">
+
+                                            <div class="text-center hide" id="update-forcast">
+                                                
+                                                <!-- spinner - displays in current weather card body on recent cities button click and on forcast update every 10 min -->
+                                                <div class="spinner-border spinner-border-sm" role="status"></div>
+
+                                            </div>
+
+                                            <div class="text-center" id="updated-forecast-timestamp">
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
                                 </div>
         
                             </div>
@@ -162,26 +187,7 @@
                                     <!-- center 5-day forcast cards within card container -->
                                     <div class="row justify-content-center" id="forcast-5day-container">
                                         
-                                        <!-- individual day card for 5-day forcast area - sample layout -->
-                                        <!-- <div class="col-lg-2 col-md-4 col-sm-3 mb-4 card5day">   
-                                                <div class="card text-white bg-info">
-                                                    <div class="card-header card5day-header">12/20</div>
-                                                    <div class="card-body single-day-body">
-                                                        
-                                                        <div class="row my-row">
-                                                            Icon
-                                                        </div>
-                                                        <div class="row my-row">
-                                                            Temp: 88  F
-                                                        </div>
-                                                        <div class="row my-row">
-                                                            Humidity: 43%
-                                                        </div>
-                                            
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div> -->
+                                        <!-- individual day card for 5-day forcast area - programmatically added -->
                                         
                                     </div> 
 
@@ -203,7 +209,7 @@
         <footer class="footer mt-auto bg-dark">
             <div class="foot-container">
 
-                <span class="my-foot-text">© 2020 v1.5 - updated: 7/23 by S. Arrazola</span>
+                <span class="my-foot-text">© 2020 v1.6 - updated: 7/23 by S. Arrazola</span>
                 
             </div>
         </footer>
